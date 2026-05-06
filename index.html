@@ -1,0 +1,1463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Carnatic Military Hotel — Legendary South Indian Dining</title>
+  <meta name="description" content="Carnatic Military Hotel — A premium South Indian dining experience in Trichy. Authentic flavors, crafted over decades." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300;1,9..40,400&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,600;1,700&display=swap" rel="stylesheet" />
+
+  <!-- AOS Scroll Animations -->
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0a0a0a;
+      --bg-card:   #0f0f0f;
+      --bg-deep:   #050505;
+      --orange:    #ff6b00;
+      --orange-lt: #ff8c00;
+      --white:     #fafafa;
+      --muted:     rgba(250,250,250,0.55);
+      --border:    rgba(250,250,250,0.10);
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--white);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    ::selection { background: rgba(255,107,0,0.3); color: var(--orange); }
+
+    a { text-decoration: none; color: inherit; }
+    img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ─── SCROLLBAR ─────────────────────────────────── */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--orange); border-radius: 99px; }
+
+    /* ─── NAVBAR ─────────────────────────────────────── */
+    #navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      padding: 24px 0;
+      transition: all 0.3s ease;
+    }
+    #navbar.scrolled {
+      padding: 14px 0;
+      background: rgba(10,10,10,0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--orange);
+      letter-spacing: -0.01em;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--orange); }
+    .nav-cta {
+      padding: 8px 22px;
+      border-radius: 99px;
+      border: 1px solid rgba(255,107,0,0.3);
+      background: rgba(255,107,0,0.08);
+      color: var(--orange) !important;
+      font-size: 0.875rem;
+      font-weight: 600;
+      transition: all 0.25s;
+    }
+    .nav-cta:hover {
+      background: var(--orange) !important;
+      color: #fff !important;
+      border-color: var(--orange);
+    }
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+      background: none;
+      border: none;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--white);
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Mobile nav overlay */
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(10,10,10,0.97);
+      backdrop-filter: blur(20px);
+      z-index: 999;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+    }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 600;
+      color: var(--white);
+      transition: color 0.2s;
+    }
+    .mobile-nav a:hover { color: var(--orange); }
+
+    /* ─── HERO ───────────────────────────────────────── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+    .hero-glow-1 {
+      position: absolute;
+      top: 20%;
+      left: 20%;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,107,0,0.12) 0%, transparent 70%);
+      pointer-events: none;
+      animation: floatGlow 8s ease-in-out infinite;
+    }
+    .hero-glow-2 {
+      position: absolute;
+      bottom: 20%;
+      right: 15%;
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,140,0,0.09) 0%, transparent 70%);
+      pointer-events: none;
+      animation: floatGlow 10s ease-in-out infinite reverse;
+    }
+    @keyframes floatGlow {
+      0%,100% { transform: translateY(0); }
+      50%      { transform: translateY(-30px); }
+    }
+
+    /* floating particles */
+    .particle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: rgba(255,107,0,0.5);
+      pointer-events: none;
+      animation: rise linear infinite;
+    }
+    @keyframes rise {
+      0%   { transform: translateY(0); opacity: 0.6; }
+      100% { transform: translateY(-120px); opacity: 0; }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 10;
+      max-width: 880px;
+      padding: 0 24px;
+      padding-top: 100px;
+    }
+    .hero-badge {
+      display: inline-block;
+      padding: 6px 18px;
+      border-radius: 99px;
+      border: 1px solid rgba(255,107,0,0.25);
+      background: rgba(255,107,0,0.08);
+      color: var(--orange);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+      animation: fadeUp 0.8s ease 0.2s both;
+    }
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 8vw, 6.5rem);
+      font-weight: 900;
+      line-height: 1.05;
+      margin-bottom: 24px;
+      animation: fadeUp 0.8s ease 0.4s both;
+    }
+    .hero-title .accent {
+      background: linear-gradient(135deg, var(--orange), var(--orange-lt));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-style: italic;
+    }
+    .hero-sub {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: var(--muted);
+      font-weight: 300;
+      max-width: 560px;
+      margin: 0 auto 40px;
+      line-height: 1.7;
+      animation: fadeUp 0.8s ease 0.6s both;
+    }
+    .hero-btns {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      animation: fadeUp 0.8s ease 0.8s both;
+    }
+    .btn-primary {
+      padding: 16px 36px;
+      border-radius: 99px;
+      background: var(--orange);
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: all 0.25s;
+      box-shadow: 0 0 30px rgba(255,107,0,0.35);
+    }
+    .btn-primary:hover {
+      background: var(--orange-lt);
+      transform: scale(1.05);
+      box-shadow: 0 0 40px rgba(255,107,0,0.5);
+    }
+    .btn-outline {
+      padding: 16px 36px;
+      border-radius: 99px;
+      border: 1px solid var(--border);
+      color: var(--white);
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: all 0.25s;
+    }
+    .btn-outline:hover {
+      border-color: rgba(255,107,0,0.4);
+      background: rgba(255,107,0,0.06);
+      transform: scale(1.05);
+    }
+    .scroll-indicator {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      animation: fadeUp 1s ease 1.4s both;
+    }
+    .scroll-indicator span {
+      font-size: 0.65rem;
+      color: var(--muted);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+    .scroll-line {
+      width: 1px;
+      height: 48px;
+      background: linear-gradient(to bottom, rgba(255,107,0,0.6), transparent);
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ─── SECTION LABEL ──────────────────────────────── */
+    .section-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 14px;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-weight: 700;
+      line-height: 1.15;
+    }
+    .section-title .italic { font-style: italic; color: var(--muted); }
+    .section-title .orange { color: var(--orange); }
+
+    /* ─── CATEGORIES ─────────────────────────────────── */
+    #menu { padding: 100px 0; }
+    .cat-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 40px;
+    }
+    .cat-scroll-btns {
+      display: flex;
+      gap: 8px;
+    }
+    .scroll-btn {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      color: var(--muted);
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+    .scroll-btn:hover { border-color: var(--orange); color: var(--orange); }
+    .cat-track-wrap { position: relative; }
+    .cat-fade-l {
+      position: absolute; left: 0; top: 0; bottom: 0;
+      width: 80px;
+      background: linear-gradient(to right, var(--bg), transparent);
+      z-index: 5; pointer-events: none;
+    }
+    .cat-fade-r {
+      position: absolute; right: 0; top: 0; bottom: 0;
+      width: 80px;
+      background: linear-gradient(to left, var(--bg), transparent);
+      z-index: 5; pointer-events: none;
+    }
+    .cat-track {
+      display: flex;
+      gap: 16px;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      padding: 16px 80px 24px;
+      scrollbar-width: none;
+    }
+    .cat-track::-webkit-scrollbar { display: none; }
+    .cat-card {
+      flex-shrink: 0;
+      width: 200px;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      padding: 28px 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .cat-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(255,107,0,0.10), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .cat-card:hover {
+      border-color: rgba(255,107,0,0.5);
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    }
+    .cat-card:hover::before { opacity: 1; }
+    .cat-icon {
+      font-size: 2.5rem;
+      margin-bottom: 14px;
+      filter: grayscale(1);
+      transition: filter 0.3s;
+    }
+    .cat-card:hover .cat-icon { filter: grayscale(0); }
+    .cat-name {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 4px;
+    }
+    .cat-count { font-size: 0.75rem; color: var(--muted); }
+
+    /* ─── SIGNATURE DISHES ───────────────────────────── */
+    #dishes { padding: 100px 0; }
+    .dishes-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      margin-top: 60px;
+    }
+    .dish-card {
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      overflow: hidden;
+      transition: border-color 0.4s, box-shadow 0.4s;
+      cursor: pointer;
+    }
+    .dish-card:hover {
+      border-color: rgba(255,107,0,0.3);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.5);
+    }
+    .dish-img {
+      aspect-ratio: 4/3;
+      overflow: hidden;
+      position: relative;
+    }
+    .dish-img img {
+      transition: transform 0.7s ease;
+    }
+    .dish-card:hover .dish-img img { transform: scale(1.06); }
+    .dish-img-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.25);
+      transition: background 0.4s;
+    }
+    .dish-card:hover .dish-img-overlay { background: rgba(0,0,0,0.05); }
+    .dish-info {
+      padding: 24px;
+      position: relative;
+    }
+    .dish-divider {
+      position: absolute;
+      top: 0; left: 24px; right: 24px;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(255,107,0,0.3), transparent);
+    }
+    .dish-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      transition: color 0.3s;
+    }
+    .dish-card:hover .dish-name { color: var(--orange); }
+    .dish-desc { font-size: 0.875rem; color: var(--muted); line-height: 1.65; }
+
+    /* ─── ABOUT ──────────────────────────────────────── */
+    #about { padding: 100px 0; position: relative; overflow: hidden; }
+    .about-glow {
+      position: absolute;
+      right: 0; top: 50%;
+      transform: translateY(-50%);
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,107,0,0.05) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .about-text { position: relative; z-index: 2; }
+    .about-text .section-title { margin-bottom: 32px; }
+    .about-text p {
+      font-size: 1.05rem;
+      color: var(--muted);
+      line-height: 1.8;
+      font-weight: 300;
+      margin-bottom: 20px;
+    }
+    .about-quote {
+      border-left: 2px solid var(--orange);
+      padding-left: 20px;
+      font-style: italic;
+      color: var(--white) !important;
+      font-weight: 500 !important;
+    }
+    .about-img-wrap { position: relative; }
+    .about-img {
+      aspect-ratio: 4/5;
+      border-radius: 24px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 40px 80px rgba(0,0,0,0.5);
+      position: relative;
+    }
+    .about-img-fade {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 40%;
+      background: linear-gradient(to top, rgba(10,10,10,0.7), transparent);
+    }
+    .about-badge {
+      position: absolute;
+      bottom: -24px; left: -24px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px 24px;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    }
+    .about-badge-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--orange);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .about-badge-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+    }
+
+    /* ─── GALLERY ────────────────────────────────────── */
+    #gallery {
+      padding: 100px 0;
+      background: var(--bg-deep);
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-auto-rows: 280px;
+      gap: 16px;
+      margin-top: 60px;
+    }
+    .gallery-cell {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .gallery-cell:nth-child(1),
+    .gallery-cell:nth-child(5) { grid-row: span 2; }
+    .gallery-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.45);
+      transition: background 0.4s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .gallery-cell:hover .gallery-overlay { background: rgba(0,0,0,0.12); }
+    .gallery-zoom {
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      background: rgba(10,10,10,0.5);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transform: scale(0.8);
+      transition: all 0.3s;
+      color: var(--orange);
+      font-size: 1.3rem;
+    }
+    .gallery-cell:hover .gallery-zoom { opacity: 1; transform: scale(1); }
+    .gallery-cell img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.7s ease;
+    }
+    .gallery-cell:hover img { transform: scale(1.08); }
+
+    /* Lightbox */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: rgba(0,0,0,0.96);
+      backdrop-filter: blur(12px);
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox-img {
+      max-width: 100%;
+      max-height: 90vh;
+      object-fit: contain;
+      border-radius: 12px;
+      width: auto;
+      height: auto;
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 24px; right: 24px;
+      background: none;
+      border: none;
+      color: rgba(255,255,255,0.7);
+      font-size: 2rem;
+      cursor: pointer;
+      transition: color 0.2s;
+      line-height: 1;
+    }
+    .lightbox-close:hover { color: #fff; }
+
+    /* ─── WHY CHOOSE US ──────────────────────────────── */
+    #why { padding: 100px 0; }
+    .why-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 80px; align-items: start; }
+    .why-left .section-title { margin-bottom: 20px; }
+    .why-left p { font-size: 1rem; color: var(--muted); line-height: 1.75; }
+    .features-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .feature-card {
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      padding: 32px;
+      transition: border-color 0.3s;
+    }
+    .feature-card:hover { border-color: rgba(255,107,0,0.3); }
+    .feature-card:last-child:nth-child(odd) { grid-column: span 2; max-width: 50%; margin: 0 auto; }
+    .feature-icon {
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      background: rgba(255,107,0,0.10);
+      color: var(--orange);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      box-shadow: 0 0 20px rgba(255,107,0,0.15);
+      font-size: 1.3rem;
+    }
+    .feature-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .feature-desc { font-size: 0.875rem; color: var(--muted); line-height: 1.65; }
+
+    /* ─── TESTIMONIALS ───────────────────────────────── */
+    #testimonials {
+      padding: 100px 0;
+      background: #080808;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .test-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 60px;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+    .rating-badge {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 99px;
+      padding: 10px 20px;
+    }
+    .stars { display: flex; gap: 3px; color: var(--orange); font-size: 1rem; }
+    .rating-num { font-weight: 700; font-size: 1.1rem; }
+    .rating-label { font-size: 0.8rem; color: var(--muted); }
+
+    .test-carousel {
+      overflow: hidden;
+      position: relative;
+    }
+    .test-track {
+      display: flex;
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .test-slide {
+      flex: 0 0 33.333%;
+      padding: 0 12px;
+      box-sizing: border-box;
+    }
+    .test-card {
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      padding: 32px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: border-color 0.3s;
+    }
+    .test-card:hover { border-color: rgba(255,107,0,0.2); }
+    .test-stars { display: flex; gap: 3px; color: var(--orange); font-size: 0.85rem; margin-bottom: 20px; }
+    .test-text {
+      font-size: 1rem;
+      color: var(--muted);
+      line-height: 1.75;
+      font-style: italic;
+      margin-bottom: 28px;
+    }
+    .test-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      color: var(--white);
+      font-weight: 500;
+    }
+    .test-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 40px;
+    }
+    .test-dot {
+      height: 8px;
+      border-radius: 99px;
+      background: var(--border);
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s;
+      width: 8px;
+    }
+    .test-dot.active { background: var(--orange); width: 24px; }
+
+    /* ─── LOCATION ───────────────────────────────────── */
+    #location { padding: 100px 0; }
+    .loc-card {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      box-shadow: 0 40px 80px rgba(0,0,0,0.4);
+    }
+    .loc-info {
+      background: var(--bg-card);
+      padding: 64px;
+    }
+    .loc-info .section-title { margin-bottom: 40px; }
+    .loc-items { display: flex; flex-direction: column; gap: 32px; }
+    .loc-item { display: flex; gap: 16px; align-items: flex-start; }
+    .loc-icon {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: rgba(255,107,0,0.10);
+      color: var(--orange);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 1.1rem;
+    }
+    .loc-item-label {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .loc-item-val { font-size: 0.9rem; color: var(--muted); line-height: 1.65; }
+    .loc-social {
+      margin-top: 40px;
+      padding-top: 28px;
+      border-top: 1px solid var(--border);
+    }
+    .loc-social a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+    .loc-social a:hover { color: var(--orange); }
+    .loc-map {
+      position: relative;
+      min-height: 400px;
+      filter: grayscale(1);
+      transition: filter 0.7s;
+    }
+    .loc-map:hover { filter: grayscale(0); }
+    .loc-map iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* ─── FOOTER ─────────────────────────────────────── */
+    footer {
+      background: var(--bg);
+      border-top: 1px solid rgba(255,107,0,0.15);
+      padding: 60px 0 32px;
+    }
+    .footer-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.75rem;
+      font-weight: 700;
+    }
+    .footer-logo .orange { color: var(--orange); }
+    .footer-tagline {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+    .footer-socials { display: flex; gap: 12px; }
+    .social-btn {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      transition: all 0.25s;
+    }
+    .social-btn:hover { border-color: var(--orange); color: var(--orange); }
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 24px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      font-size: 0.8rem;
+      color: var(--muted);
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .footer-links { display: flex; gap: 24px; }
+    .footer-links a { color: var(--muted); transition: color 0.2s; }
+    .footer-links a:hover { color: var(--orange); }
+
+    /* WhatsApp FAB */
+    .whatsapp-fab {
+      position: fixed;
+      bottom: 28px; right: 28px;
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      background: #25d366;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      box-shadow: 0 8px 24px rgba(37,211,102,0.35);
+      z-index: 999;
+      transition: all 0.25s;
+    }
+    .whatsapp-fab:hover {
+      background: #128c7e;
+      transform: scale(1.1);
+    }
+
+    /* ─── RESPONSIVE ─────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .dishes-grid { grid-template-columns: repeat(2, 1fr); }
+      .about-grid { grid-template-columns: 1fr; gap: 48px; }
+      .about-img-wrap { order: -1; }
+      .about-badge { display: none; }
+      .why-grid { grid-template-columns: 1fr; gap: 40px; }
+    }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .cat-header { flex-direction: column; align-items: flex-start; gap: 20px; }
+      .cat-scroll-btns { display: none; }
+      .dishes-grid { grid-template-columns: 1fr; }
+      .gallery-grid { grid-template-columns: 1fr 1fr; }
+      .gallery-cell:nth-child(1) { grid-row: span 1; }
+      .gallery-cell:nth-child(5) { grid-row: span 1; }
+      .gallery-grid { grid-auto-rows: 200px; }
+      .test-slide { flex: 0 0 100%; }
+      .loc-card { grid-template-columns: 1fr; }
+      .loc-info { padding: 40px 28px; }
+      .loc-map { min-height: 300px; position: relative; }
+      .footer-top { flex-direction: column; text-align: center; align-items: center; }
+      .footer-bottom { flex-direction: column; text-align: center; align-items: center; }
+      .features-grid { grid-template-columns: 1fr; }
+      .feature-card:last-child:nth-child(odd) { grid-column: span 1; max-width: 100%; }
+      .test-header { flex-direction: column; align-items: flex-start; }
+      section { overflow-x: hidden; }
+    }
+    @media (max-width: 480px) {
+      .gallery-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ───────────────── NAVBAR ───────────────────────────── -->
+<header id="navbar">
+  <div class="container nav-inner">
+    <a href="#" class="nav-logo">Carnatic</a>
+
+    <nav>
+      <ul class="nav-links">
+        <li><a href="#menu">Menu</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#location">Location</a></li>
+        <li><a href="#location" class="nav-cta">Visit Us</a></li>
+      </ul>
+    </nav>
+
+    <button class="hamburger" id="hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- Mobile nav -->
+<div class="mobile-nav" id="mobileNav">
+  <a href="#menu"     onclick="closeMobile()">Menu</a>
+  <a href="#about"    onclick="closeMobile()">About</a>
+  <a href="#gallery"  onclick="closeMobile()">Gallery</a>
+  <a href="#location" onclick="closeMobile()">Location</a>
+</div>
+
+
+<!-- ───────────────── HERO ────────────────────────────── -->
+<section id="hero">
+  <div class="hero-glow-1"></div>
+  <div class="hero-glow-2"></div>
+  <div id="particles"></div>
+
+  <div class="hero-content">
+    <div class="hero-badge">Legendary South Indian Dining</div>
+
+    <h1 class="hero-title">
+      Carnatic<br>
+      <span class="accent">Military Hotel</span>
+    </h1>
+
+    <p class="hero-sub">
+      Step into a world of cinematic flavors. A premium dining experience
+      where centuries-old recipes meet modern culinary excellence.
+    </p>
+
+    <div class="hero-btns">
+      <a href="#menu"     class="btn-primary">Explore Menu</a>
+      <a href="#location" class="btn-outline">Visit Us</a>
+    </div>
+  </div>
+
+  <div class="scroll-indicator">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+
+<!-- ───────────────── CATEGORIES ──────────────────────── -->
+<section id="menu">
+  <div class="container">
+    <div class="cat-header">
+      <div data-aos="fade-right">
+        <p class="section-label">Culinary Repertoire</p>
+        <h2 class="section-title">
+          Our <span class="italic">Categories</span>
+        </h2>
+        <p style="color:var(--muted);margin-top:14px;max-width:480px;font-size:0.95rem;line-height:1.7;">
+          A curated selection prepared with uncompromising dedication to authenticity.
+        </p>
+      </div>
+      <div class="cat-scroll-btns" data-aos="fade-left">
+        <button class="scroll-btn" onclick="scrollCat(-1)">&#8592;</button>
+        <button class="scroll-btn" onclick="scrollCat(1)">&#8594;</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="cat-track-wrap">
+    <div class="cat-fade-l"></div>
+    <div class="cat-fade-r"></div>
+    <div class="cat-track" id="catTrack">
+      <div class="cat-card"><div class="cat-icon">🍛</div><div class="cat-name">Meals</div><div class="cat-count">12 Items</div></div>
+      <div class="cat-card"><div class="cat-icon">🥞</div><div class="cat-name">Breakfast</div><div class="cat-count">18 Items</div></div>
+      <div class="cat-card"><div class="cat-icon">🥘</div><div class="cat-name">Biryani</div><div class="cat-count">8 Items</div></div>
+      <div class="cat-card"><div class="cat-icon">🥗</div><div class="cat-name">Veg Specials</div><div class="cat-count">24 Items</div></div>
+      <div class="cat-card"><div class="cat-icon">🍗</div><div class="cat-name">Non-Veg Specials</div><div class="cat-count">32 Items</div></div>
+      <div class="cat-card"><div class="cat-icon">🐟</div><div class="cat-name">Seafood</div><div class="cat-count">14 Items</div></div>
+      <div class="cat-card"><div class="cat-icon">🥟</div><div class="cat-name">Snacks</div><div class="cat-count">16 Items</div></div>
+      <div class="cat-card"><div class="cat-icon">🍨</div><div class="cat-name">Desserts</div><div class="cat-count">10 Items</div></div>
+      <div class="cat-card"><div class="cat-icon">☕</div><div class="cat-name">Beverages</div><div class="cat-count">12 Items</div></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ───────────────── SIGNATURE DISHES ────────────────── -->
+<section id="dishes" style="padding:100px 0;">
+  <div class="container">
+    <div style="text-align:center;max-width:560px;margin:0 auto 60px;" data-aos="fade-up">
+      <p class="section-label">The Masterpieces</p>
+      <h2 class="section-title">Signature <span class="italic">Classics</span></h2>
+    </div>
+
+    <div class="dishes-grid">
+      <div class="dish-card" data-aos="fade-up" data-aos-delay="0">
+        <div class="dish-img"><div class="dish-img-overlay"></div><img src="images/mutton.png" alt="Mutton Chukka" loading="lazy" /></div>
+        <div class="dish-info"><div class="dish-divider"></div><h3 class="dish-name">Mutton Chukka</h3><p class="dish-desc">Slow-roasted with pepper, curry leaves, and sun-dried spices.</p></div>
+      </div>
+      <div class="dish-card" data-aos="fade-up" data-aos-delay="80">
+        <div class="dish-img"><div class="dish-img-overlay"></div><img src="images/biryani.png" alt="Biryani" loading="lazy" /></div>
+        <div class="dish-info"><div class="dish-divider"></div><h3 class="dish-name">Classic Mutton Biryani</h3><p class="dish-desc">Seeraga samba rice cooked with tender meat and ancestral spices.</p></div>
+      </div>
+      <div class="dish-card" data-aos="fade-up" data-aos-delay="160">
+        <div class="dish-img"><div class="dish-img-overlay"></div><img src="images/seafood.png" alt="Seafood" loading="lazy" /></div>
+        <div class="dish-info"><div class="dish-divider"></div><h3 class="dish-name">Nellore Fish Curry</h3><p class="dish-desc">Tangy tamarind broth with fresh catch of the day.</p></div>
+      </div>
+      <div class="dish-card" data-aos="fade-up" data-aos-delay="0">
+        <div class="dish-img"><div class="dish-img-overlay"></div><img src="images/dosa.png" alt="Dosa" loading="lazy" /></div>
+        <div class="dish-info"><div class="dish-divider"></div><h3 class="dish-name">Ghee Roast Dosa</h3><p class="dish-desc">Crispy golden crepe roasted in pure clarified butter.</p></div>
+      </div>
+      <div class="dish-card" data-aos="fade-up" data-aos-delay="80">
+        <div class="dish-img"><div class="dish-img-overlay"></div><img src="images/thali.png" alt="Thali" loading="lazy" /></div>
+        <div class="dish-info"><div class="dish-divider"></div><h3 class="dish-name">Carnatic Royal Thali</h3><p class="dish-desc">A magnificent spread of 15 authentic delicacies.</p></div>
+      </div>
+      <div class="dish-card" data-aos="fade-up" data-aos-delay="160">
+        <div class="dish-img"><div class="dish-img-overlay"></div><img src="images/coffee.png" alt="Filter Kaapi" loading="lazy" /></div>
+        <div class="dish-info"><div class="dish-divider"></div><h3 class="dish-name">Filter Kaapi</h3><p class="dish-desc">Freshly brewed chicory blend served in traditional brass.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ───────────────── ABOUT ───────────────────────────── -->
+<section id="about">
+  <div class="about-glow"></div>
+  <div class="container">
+    <div class="about-grid">
+
+      <div class="about-text" data-aos="fade-right">
+        <p class="section-label">Our Legacy</p>
+        <h2 class="section-title">A symphony of <span class="orange">spices</span>,<br>crafted over decades.</h2>
+        <br>
+        <p>Founded on the uncompromising principles of traditional South Indian cooking, Carnatic Military Hotel is more than a restaurant — it's a custodian of authentic flavors.</p>
+        <p>We believe that true luxury lies in the purity of ingredients. Our spices are hand-pounded, our meats are slow-cooked in copper vessels, and every dish is prepared with the exact rigor of our ancestral kitchens.</p>
+        <p class="about-quote">"We don't just serve food; we serve memories forged in the heat of a wood-fired stove."</p>
+      </div>
+
+      <div class="about-img-wrap" data-aos="fade-left">
+        <div class="about-img">
+          <img src="images/ambience.png" alt="Restaurant interior" loading="lazy" />
+          <div class="about-img-fade"></div>
+        </div>
+        <div class="about-badge">
+          <div class="about-badge-num">50+</div>
+          <div class="about-badge-label">Years of Legacy</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ───────────────── GALLERY ─────────────────────────── -->
+<section id="gallery">
+  <div class="container">
+    <div style="text-align:center;max-width:480px;margin:0 auto 60px;" data-aos="fade-up">
+      <h2 class="section-title">Visual <span class="orange italic">Feast</span></h2>
+    </div>
+
+    <div class="gallery-grid">
+      <div class="gallery-cell" data-aos="fade-up" data-aos-delay="0"  onclick="openLightbox('images/gallery-1.png')">
+        <img src="images/gallery-1.png" alt="Gallery" loading="lazy" />
+        <div class="gallery-overlay"><div class="gallery-zoom">&#x2315;</div></div>
+      </div>
+      <div class="gallery-cell" data-aos="fade-up" data-aos-delay="80" onclick="openLightbox('images/biryani.png')">
+        <img src="images/biryani.png" alt="Gallery" loading="lazy" />
+        <div class="gallery-overlay"><div class="gallery-zoom">&#x2315;</div></div>
+      </div>
+      <div class="gallery-cell" data-aos="fade-up" data-aos-delay="160" onclick="openLightbox('images/gallery-2.png')">
+        <img src="images/gallery-2.png" alt="Gallery" loading="lazy" />
+        <div class="gallery-overlay"><div class="gallery-zoom">&#x2315;</div></div>
+      </div>
+      <div class="gallery-cell" data-aos="fade-up" data-aos-delay="80"  onclick="openLightbox('images/seafood.png')">
+        <img src="images/seafood.png" alt="Gallery" loading="lazy" />
+        <div class="gallery-overlay"><div class="gallery-zoom">&#x2315;</div></div>
+      </div>
+      <div class="gallery-cell" data-aos="fade-up" data-aos-delay="0"   onclick="openLightbox('images/ambience.png')">
+        <img src="images/ambience.png" alt="Gallery" loading="lazy" />
+        <div class="gallery-overlay"><div class="gallery-zoom">&#x2315;</div></div>
+      </div>
+      <div class="gallery-cell" data-aos="fade-up" data-aos-delay="160" onclick="openLightbox('images/thali.png')">
+        <img src="images/thali.png" alt="Gallery" loading="lazy" />
+        <div class="gallery-overlay"><div class="gallery-zoom">&#x2315;</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ───────────────── WHY CHOOSE US ───────────────────── -->
+<section id="why">
+  <div class="container">
+    <div class="why-grid">
+      <div data-aos="fade-right">
+        <h2 class="section-title">The Carnatic <span class="orange italic">Standard</span></h2>
+        <br>
+        <p style="color:var(--muted);line-height:1.75;">We do not chase trends. We obsess over the timeless fundamentals of exceptional hospitality and culinary craft.</p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card" data-aos="fade-up" data-aos-delay="0">
+          <div class="feature-icon">&#127807;</div>
+          <div class="feature-title">Fresh Ingredients</div>
+          <p class="feature-desc">Sourced directly from local farmers, ensuring the purest flavors daily.</p>
+        </div>
+        <div class="feature-card" data-aos="fade-up" data-aos-delay="80">
+          <div class="feature-icon">&#128293;</div>
+          <div class="feature-title">Authentic Recipes</div>
+          <p class="feature-desc">Generational techniques that refuse to cut corners or compromise.</p>
+        </div>
+        <div class="feature-card" data-aos="fade-up" data-aos-delay="160">
+          <div class="feature-icon">&#x2714;</div>
+          <div class="feature-title">Hygienic Kitchen</div>
+          <p class="feature-desc">Immaculate preparation standards matching fine-dining rigor.</p>
+        </div>
+        <div class="feature-card" data-aos="fade-up" data-aos-delay="240">
+          <div class="feature-icon">&#10024;</div>
+          <div class="feature-title">Quality Service</div>
+          <p class="feature-desc">Attentive, anticipatory, and deeply respectful of your dining experience.</p>
+        </div>
+        <div class="feature-card" data-aos="fade-up" data-aos-delay="320">
+          <div class="feature-icon">&#x25C6;</div>
+          <div class="feature-title">Premium Dining</div>
+          <p class="feature-desc">An atmosphere designed to elevate every meal into an occasion.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ───────────────── TESTIMONIALS ────────────────────── -->
+<section id="testimonials">
+  <div class="container">
+    <div class="test-header" data-aos="fade-up">
+      <h2 class="section-title">Words of <span class="orange italic">Appreciation</span></h2>
+      <div class="rating-badge">
+        <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <span class="rating-num">4.8</span>
+        <span class="rating-label">Google Reviews</span>
+      </div>
+    </div>
+
+    <div class="test-carousel" data-aos="fade-up" data-aos-delay="100">
+      <div class="test-track" id="testTrack">
+        <div class="test-slide">
+          <div class="test-card">
+            <div><div class="test-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <p class="test-text">"Easily the most sophisticated South Indian meal I've had. The mutton chukka is an absolute revelation."</p></div>
+            <p class="test-name">— Siddharth R.</p>
+          </div>
+        </div>
+        <div class="test-slide">
+          <div class="test-card">
+            <div><div class="test-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <p class="test-text">"It feels like dining in a heritage home but with the polish of a fine-dining restaurant. Stunning experience."</p></div>
+            <p class="test-name">— Priya Menon</p>
+          </div>
+        </div>
+        <div class="test-slide">
+          <div class="test-card">
+            <div><div class="test-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <p class="test-text">"The attention to detail in the biryani is incredible. You can taste the quality of the ghee and the samba rice."</p></div>
+            <p class="test-name">— Karthik S.</p>
+          </div>
+        </div>
+        <div class="test-slide">
+          <div class="test-card">
+            <div><div class="test-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <p class="test-text">"A masterclass in traditional flavors. The ambiance is dark, moody, and perfect for a special evening out."</p></div>
+            <p class="test-name">— Anita V.</p>
+          </div>
+        </div>
+        <div class="test-slide">
+          <div class="test-card">
+            <div><div class="test-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <p class="test-text">"Finally, a place that treats South Indian non-veg with the reverence it deserves. 5 stars without a doubt."</p></div>
+            <p class="test-name">— Rahul T.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="test-dots" id="testDots"></div>
+  </div>
+</section>
+
+
+<!-- ───────────────── LOCATION ────────────────────────── -->
+<section id="location">
+  <div class="container" data-aos="fade-up">
+    <div class="loc-card">
+      <div class="loc-info">
+        <h2 class="section-title">Plan Your <span class="orange italic">Visit</span></h2>
+        <div class="loc-items">
+          <div class="loc-item">
+            <div class="loc-icon">&#128205;</div>
+            <div>
+              <div class="loc-item-label">Address</div>
+              <div class="loc-item-val">27, Anna Salai,<br>Trichy – 620001,<br>Tamil Nadu, India</div>
+            </div>
+          </div>
+          <div class="loc-item">
+            <div class="loc-icon">&#128336;</div>
+            <div>
+              <div class="loc-item-label">Hours</div>
+              <div class="loc-item-val">Mon – Sun<br>7:00 AM – 10:30 PM</div>
+            </div>
+          </div>
+          <div class="loc-item">
+            <div class="loc-icon">&#128222;</div>
+            <div>
+              <div class="loc-item-label">Contact</div>
+              <div class="loc-item-val">+91 94433 00000</div>
+            </div>
+          </div>
+        </div>
+        <div class="loc-social">
+          <a href="#" target="_blank">&#128247; Follow our culinary journey on Instagram</a>
+        </div>
+      </div>
+
+      <div class="loc-map">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.7844007823933!2d78.6888!3d10.8282!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTDCsDQ5JzQxLjUiTiA3OMKwNDEnMTkuNyJF!5e0!3m2!1sen!2sin!4v1620000000000!5m2!1sen!2sin"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Carnatic Military Hotel Location">
+        </iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ───────────────── FOOTER ──────────────────────────── -->
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo">Carnatic <span class="orange">Military Hotel</span></div>
+        <div class="footer-tagline">A Legacy of Taste</div>
+      </div>
+      <div class="footer-socials">
+        <a href="#" class="social-btn" title="Instagram">&#128247;</a>
+        <a href="#" class="social-btn" title="Facebook">&#128100;</a>
+        <a href="https://wa.me/919443300000" class="social-btn" title="WhatsApp" target="_blank">&#128172;</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; <span id="year"></span> Carnatic Military Hotel. All rights reserved.</p>
+      <div class="footer-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+<!-- WhatsApp FAB -->
+<a href="https://wa.me/919443300000" class="whatsapp-fab" target="_blank" rel="noopener noreferrer" title="Chat on WhatsApp" aria-label="WhatsApp">
+  &#128172;
+</a>
+
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="lightbox-close" onclick="closeLightbox()">&#10005;</button>
+  <img class="lightbox-img" id="lightboxImg" src="" alt="Gallery preview" onclick="event.stopPropagation()" />
+</div>
+
+
+<!-- ───────────────── SCRIPTS ─────────────────────────── -->
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+  /* ── AOS Init ── */
+  AOS.init({ duration: 700, easing: 'ease-out-cubic', once: true, offset: 80 });
+
+  /* ── Year ── */
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  /* ── Navbar scroll ── */
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  /* ── Hamburger ── */
+  const hamburger = document.getElementById('hamburger');
+  const mobileNav = document.getElementById('mobileNav');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileNav.classList.toggle('open');
+    document.body.style.overflow = mobileNav.classList.contains('open') ? 'hidden' : '';
+  });
+  function closeMobile() {
+    hamburger.classList.remove('open');
+    mobileNav.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  /* ── Hero particles ── */
+  const particleContainer = document.getElementById('particles');
+  for (let i = 0; i < 18; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.cssText = `
+      left: ${Math.random() * 100}%;
+      top:  ${Math.random() * 100}%;
+      animation-duration: ${Math.random() * 6 + 5}s;
+      animation-delay:    ${Math.random() * 5}s;
+      opacity: ${Math.random() * 0.5 + 0.1};
+      width:  ${Math.random() * 4 + 2}px;
+      height: ${Math.random() * 4 + 2}px;
+    `;
+    particleContainer.appendChild(p);
+  }
+
+  /* ── Category scroll ── */
+  function scrollCat(dir) {
+    const track = document.getElementById('catTrack');
+    track.scrollBy({ left: dir * 300, behavior: 'smooth' });
+  }
+
+  /* ── Gallery lightbox ── */
+  function openLightbox(src) {
+    document.getElementById('lightboxImg').src = src;
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+  /* ── Testimonials carousel ── */
+  const track    = document.getElementById('testTrack');
+  const dotsWrap = document.getElementById('testDots');
+  const slides   = track.querySelectorAll('.test-slide');
+  let current = 0;
+  let perView = window.innerWidth < 768 ? 1 : window.innerWidth < 1024 ? 2 : 3;
+
+  function getPerView() {
+    return window.innerWidth < 768 ? 1 : window.innerWidth < 1024 ? 2 : 3;
+  }
+
+  function buildDots() {
+    dotsWrap.innerHTML = '';
+    perView = getPerView();
+    const total = slides.length - perView + 1;
+    for (let i = 0; i < total; i++) {
+      const d = document.createElement('button');
+      d.className = 'test-dot' + (i === current ? ' active' : '');
+      d.addEventListener('click', () => goTo(i));
+      dotsWrap.appendChild(d);
+    }
+    slides.forEach(s => { s.style.flex = `0 0 ${100 / perView}%`; });
+  }
+
+  function goTo(idx) {
+    const total = slides.length - perView + 1;
+    current = Math.max(0, Math.min(idx, total - 1));
+    track.style.transform = `translateX(-${current * (100 / perView)}%)`;
+    document.querySelectorAll('.test-dot').forEach((d, i) => {
+      d.classList.toggle('active', i === current);
+    });
+  }
+
+  buildDots();
+  window.addEventListener('resize', () => { buildDots(); goTo(0); });
+
+  let autoSlide = setInterval(() => {
+    const total = slides.length - perView + 1;
+    goTo((current + 1) % total);
+  }, 4000);
+
+  track.parentElement.addEventListener('mouseenter', () => clearInterval(autoSlide));
+  track.parentElement.addEventListener('mouseleave', () => {
+    autoSlide = setInterval(() => {
+      const total = slides.length - perView + 1;
+      goTo((current + 1) % total);
+    }, 4000);
+  });
+
+  /* ── Smooth anchor scroll (offset for sticky nav) ── */
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const id = a.getAttribute('href');
+      if (id === '#') return;
+      const el = document.querySelector(id);
+      if (el) {
+        e.preventDefault();
+        const offset = navbar.offsetHeight + 20;
+        const top = el.getBoundingClientRect().top + window.scrollY - offset;
+        window.scrollTo({ top, behavior: 'smooth' });
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
